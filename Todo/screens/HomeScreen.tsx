@@ -41,7 +41,7 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
     tabContent: {
-        width: '95%',
+        width: '100%',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
