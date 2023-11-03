@@ -10,7 +10,7 @@ const LoginScreen = ({ navigation }:any) => {
     const handleLogin = async () => {
         try {
 
-            const response = await axios.post('https://fakeapi.platzi.com/en/rest/auth-jwt', {
+            const response = await axios.post('https://api.escuelajs.co/api/v1/auth/login', {
                 email,
                 password,
             });
@@ -20,7 +20,7 @@ const LoginScreen = ({ navigation }:any) => {
             // If login is successful, navigate to the Profile screen
             console.log(response)
             if (response) {
-                navigation.navigate('Profile');
+                navigation.navigate('Home');
             }
         } catch (error) {
             console.error('Login failed:', error);
