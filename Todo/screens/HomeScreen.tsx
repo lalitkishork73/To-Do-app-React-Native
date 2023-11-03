@@ -3,6 +3,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text, StyleSheet } from 'react-native';
 import ProfileScreen from './ProfileScreen';
+import AddTodo from './AddTodo';
 import TodoView from './TodoView';
 const Tab = createBottomTabNavigator();
 
@@ -12,11 +13,8 @@ const TodoScreen = () => (
     </View>
 );
 
-const InProgressScreen = () => (
-    <View style={styles.tabContent}>
-        <Text style={styles.tabText}>In Progress</Text>
-        {/* Display tasks related to "In Progress" category */}
-    </View>
+const CreateTodo = () => (
+    <AddTodo />
 );
 
 
@@ -33,7 +31,7 @@ const HomeScreen = () => {
             })}
         >
             <Tab.Screen name="Todo" component={TodoScreen} options={{ title: 'ToDo' }} />
-            <Tab.Screen name="In Progress" component={InProgressScreen} options={{ title: 'Create' }} />
+            <Tab.Screen name="In Progress" component={CreateTodo} options={{ title: 'Create Todo' }} />
             <Tab.Screen name="Completed" component={ProfileScreen} options={{ title: 'Profile' }} />
         </Tab.Navigator>
     );
