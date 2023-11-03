@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Task {
   title: string;
@@ -17,7 +18,6 @@ export default function AddTodo() {
   });
 
   const addSubtask = () => {
-   
     const updatedSubtasks = [...Task.subtasks, ''];
     setTask({ ...Task, subtasks: updatedSubtasks });
   };
@@ -28,9 +28,30 @@ export default function AddTodo() {
     setTask({ ...Task, subtasks: updatedSubtasks });
   };
 
-  const createTask = () => {
-   
-    console.log('New Task:', Task);
+  const createTask = async () => {
+    try {
+      // Load existing tasks from AsyncStorage
+      const existingTasksJSON = await AsyncStorage.getItem('tasks');
+      const existingTasks = existingTasksJSON ? JSON.parse(existingTasksJSON) : [];
+
+      // Create a new task
+      const newTask = {
+        title: Task.title,
+        description: Task.description,
+        subtasks: Task.subtasks,
+        status: Task.status,
+      };
+
+      // Add the new task to the existing tasks
+      existingTasks.push(newTask);
+
+      // Save the updated tasks back to AsyncStorage
+      await AsyncStorage.setItem('tasks', JSON.stringify(existingTasks));
+
+      console.log('New Task:', Task);
+    } catch (error) {
+      console.error('Error saving task to AsyncStorage:', error);
+    }
   };
 
   return (
